@@ -1,0 +1,18 @@
+#mysql community (free mysql)
+https://dev.mysql.com/downloads/mysql/
+
+#mysql workbench (GUI)
+https://dev.mysql.com/downloads/workbench/
+
+#sakila instructions
+https://dev.mysql.com/doc/sakila/en/sakila-installation.html
+#sakila download
+https://dev.mysql.com/doc/index-other.html
+
+#open sakila-schema.sql
+#run query in mysql workbench
+#open sakila-data.sql
+#run query in mysql workbench
+
+#USE sakila;
+#SELECT * FROM actor;
