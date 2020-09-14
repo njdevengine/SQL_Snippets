@@ -1,4 +1,6 @@
 #https://docs.sqlalchemy.org/en/latest/core/engines.html
+#pip install pymysql, this is a mysql connection
+
 # SQL Alchemy
 import urllib
 import sqlalchemy as sa
@@ -20,3 +22,6 @@ for i in table_array:
     query = "SELECT TABLE_NAME,COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'"+i+"'"
     df = pd.read_sql(query,con)
     columns.append(df)
+
+#create master dataframe containing table names and columns    
+meta = pd.concat(columns)
