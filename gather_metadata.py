@@ -25,3 +25,7 @@ for i in table_array:
 
 #create master dataframe containing table names and columns    
 meta = pd.concat(columns)
+
+#view all rows
+pd.set_option("display.max_rows", None, "display.max_columns", None)
+meta
