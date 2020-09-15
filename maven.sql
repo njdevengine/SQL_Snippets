@@ -98,10 +98,11 @@ where website_sessions.utm_source = "gsearch" and website_sessions.utm_campaign 
 AND website_sessions.created_at < '2012-04-14'
 ;
 
--- aggregate total weekly website visits
+-- aggregate total weekly website visits, gets start date for week
 select
     year(created_at),
 	week(created_at),
+    min(date(created_at)) as week_of,
 	count(distinct website_session_id) as sessions
 from website_sessions
 where website_session_id between 100000 and 115000
