@@ -73,4 +73,16 @@ select
 	count(distinct website_session_id) as sessions
 from website_sessions
 where created_at < '2012-04-12'
-group by 1,2,3
+group by 1,2,3;
+
+-- get conversion rates i.e. sessions to orders for gsearch/nonbrand sessions
+
+select 
+	count(distinct website_sessions.website_session_id) as sessions,
+	count(distinct orders.website_session_id) as orders,
+	count(distinct orders.website_session_id)/count(distinct website_sessions.website_session_id) as conv_rate
+from website_sessions
+left join orders on orders.website_session_id = website_sessions.website_session_id
+where website_sessions.utm_source = "gsearch" and website_sessions.utm_campaign = "nonbrand"
+;
+
