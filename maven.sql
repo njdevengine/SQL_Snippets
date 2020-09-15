@@ -7,4 +7,14 @@ group by
 utm_content
 order by count(distinct website_session_id) desc;
 
+-- same as above with group by order by shorthand
+
+select
+	utm_content,
+	count(distinct website_session_id) as sessions
+from website_sessions
+where user_id between 1000 and 2000
+group by 1
+order by 2 desc;
+
 --
