@@ -118,3 +118,16 @@ count(distinct case when items_purchased >=2 then order_id else null end) as mul
 from orders
 group by 1
 ;
+	     
+-- view weekly sessions between date range
+	     
+select
+week(created_at),
+min(date(created_at)) as week_of,
+count(distinct website_session_id) as sessions
+from website_sessions
+where website_sessions.utm_source = "gsearch" and website_sessions.utm_campaign = "nonbrand"
+and created_at >= '2012-04-15' and created_at <= '2012-05-10'
+group by week(created_at)
+order by week_of desc
+;
