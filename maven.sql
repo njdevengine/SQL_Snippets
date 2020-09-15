@@ -141,5 +141,7 @@ count(distinct orders.website_session_id)/count(distinct website_sessions.websit
 from website_sessions
 left join orders on website_sessions.website_session_id = orders.website_session_id
 where website_sessions.created_at <= '2012-05-11' -- and website_sessions.created_at >= '2012-04-15'
-group by website_sessions.device_type
+and website_sessions.utm_source = 'gsearch'
+and website_sessions.utm_campaign = 'nonbrand'
+group by 1
 ;
