@@ -17,4 +17,15 @@ where user_id between 1000 and 2000
 group by 1
 order by 2 desc;
 
---
+-- getting a column of sessions and orders from those sessions (i.e. sessions to purchase conversion by source)
+
+select
+	website_sessions.utm_content,
+	count(distinct website_sessions.website_session_id) as sessions,
+    count(distinct orders.order_id) as orders
+from website_sessions
+	left join orders on
+		orders.website_session_id = website_sessions.website_session_id
+where website_sessions.website_session_id between 1000 and 2000
+group by 1
+order by 2 desc;
