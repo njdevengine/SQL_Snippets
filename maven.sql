@@ -131,3 +131,15 @@ and created_at >= '2012-04-15' and created_at <= '2012-05-10'
 group by week(created_at)
 order by week_of desc
 ;
+	 
+-- get sessions, orders and conversion rate by device type
+	 
+select website_sessions.device_type,
+count(distinct website_sessions.website_session_id) as sessions,
+count(distinct orders.website_session_id) as orders,
+count(distinct orders.website_session_id)/count(distinct website_sessions.website_session_id) as conversion_rate
+from website_sessions
+left join orders on website_sessions.website_session_id = orders.website_session_id
+where website_sessions.created_at <= '2012-05-11' -- and website_sessions.created_at >= '2012-04-15'
+group by website_sessions.device_type
+;
