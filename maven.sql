@@ -53,3 +53,14 @@ count(distinct website_session_id) as sessions
 from website_sessions
 group by 1,2,3
 order by 4 desc;
+
+-- get number of sessions from referral sources that resulted in an order
+select
+	utm_source,
+	utm_campaign,
+	http_referer,
+	count(distinct website_session_id) as sessions
+from website_sessions
+where exists(select * from orders where orders.website_session_id=website_sessions.website_session_id)
+group by 1,2,3
+order by 4 desc;
