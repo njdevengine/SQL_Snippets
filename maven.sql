@@ -42,3 +42,14 @@ from website_sessions
 where website_sessions.website_session_id between 1000 and 2000
 group by 1
 order by 2 desc;
+
+-- get number of sessions by referer sources
+
+select
+utm_source,
+utm_campaign,
+http_referer,
+count(distinct website_session_id) as sessions
+from website_sessions
+group by 1,2,3
+order by 4 desc;
