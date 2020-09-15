@@ -107,3 +107,14 @@ select
 from website_sessions
 where website_session_id between 100000 and 115000
 group by 1,2;
+	     
+-- break down of single and mutli item orders using case when, its like a pivot table where you add columns
+select
+primary_product_id,
+order_id,
+items_purchased,
+count(distinct case when items_purchased = 1 then order_id else null end) as single_item_orders,
+count(distinct case when items_purchased >=2 then order_id else null end) as multi_item_orders
+from orders
+group by 1,2
+;
