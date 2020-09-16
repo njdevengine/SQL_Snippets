@@ -159,3 +159,13 @@ and created_at >= '2012-04-15'
 and utm_source = 'gsearch'
 and utm_campaign = 'nonbrand'
 group by week(created_at);
+
+-- get page urls with most views
+
+select
+pageview_url,
+count(distinct website_pageview_id) as views
+from website_pageviews
+group by 1
+order by views
+desc;
