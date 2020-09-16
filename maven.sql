@@ -169,3 +169,22 @@ from website_pageviews
 group by 1
 order by views
 desc;
+	 
+-- create temp table of first pageview per session
+-- then get count of pageviews for different first landing page (min pageview per session
+create temporary table first_pageview
+select
+website_session_id,
+min(website_pageview_id) as min_pv_id
+from website_pageviews
+group by website_session_id;
+	 
+select
+website_pageviews.pageview_url,
+count(distinct website_pageviews.website_pageview_id) as first
+from first_pageview
+left join website_pageviews on website_pageviews.website_pageview_id = first_pageview.min_pv_id
+group by 1
+order by first
+desc
+;
