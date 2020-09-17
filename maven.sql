@@ -200,3 +200,23 @@ group by pageview_url
 order by sessions
 desc
 ;
+	 
+-- get summary of first pageviews, total pageviews per landing page
+/*
+create temporary table first_session
+select
+website_session_id,
+min(website_pageview_id) as first_pv
+from website_pageviews
+where created_at < '2012-06-12'
+group by
+1;
+*/
+/*
+select
+count(distinct website_pageviews.website_pageview_id) as pvs,
+website_pageviews.pageview_url
+from website_pageviews
+inner join first_session on first_session.first_pv = website_pageviews.website_pageview_id
+group by website_pageviews.pageview_url
+; */
