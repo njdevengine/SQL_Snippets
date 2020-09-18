@@ -221,7 +221,7 @@ inner join first_session on first_session.first_pv = website_pageviews.website_p
 group by website_pageviews.pageview_url
 ; */
 
--- create temp table of first pageviews per session
+-- STEP 1: create temp table of first pageviews per session
 /*
 create temporary table first_pageviews_demo
 select
@@ -234,7 +234,7 @@ and website_sessions.created_at between '2014-01-01' and '2014-02-01'
 group by
 website_pageviews.website_session_id;
 */
--- join landing page to that	 
+-- STEP 2: join landing page to that	 
 /*
 create temporary table sessions_w_landing_page_demo
 select 
@@ -245,7 +245,7 @@ left join website_pageviews
 on website_pageviews.website_pageview_id = first_pageviews_demo.min_pv;
 */
 	 
--- gets bounced sessions only, i.e. only one pageview in the session
+-- STEP 3: gets bounced sessions only, i.e. only one pageview in the session
 
 /*
 create temporary table bounced_sessions_only
@@ -262,3 +262,13 @@ sessions_w_landing_page_demo.landing_page
 having
 count_of_pages_viewed = 1;
 */
+-- STEP 5: get bounce rate
+select
+sessions_w_landing_page_demo.landing_page,
+count(distinct sessions_w_landing_page_demo.website_session_id) as total_sessions,
+count(distinct bounced_sessions_only.website_session_id) as bounced_sessions,
+count(distinct bounced_sessions_only.website_session_id)/count(distinct sessions_w_landing_page_demo.website_session_id) as bounce_rate
+from sessions_w_landing_page_demo
+left join bounced_sessions_only
+on sessions_w_landing_page_demo.website_session_id = bounced_sessions_only.website_session_id
+group by sessions_w_landing_page_demo.landing_page;
