@@ -244,3 +244,18 @@ from first_pageviews_demo
 left join website_pageviews
 on website_pageviews.website_pageview_id = first_pageviews_demo.min_pv;
 */
+	 
+-- gets bounced sessions only, i.e. only one pageview in the session
+
+select
+sessions_w_landing_page_demo.website_session_id,
+sessions_w_landing_page_demo.landing_page,
+count(website_pageviews.website_pageview_id) as count_of_pages_viewed
+from sessions_w_landing_page_demo
+left join website_pageviews
+on website_pageviews.website_session_id = sessions_w_landing_page_demo.website_session_id
+group by
+sessions_w_landing_page_demo.website_session_id,
+sessions_w_landing_page_demo.landing_page
+having
+count_of_pages_viewed = 1;
