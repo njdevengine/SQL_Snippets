@@ -220,3 +220,27 @@ from website_pageviews
 inner join first_session on first_session.first_pv = website_pageviews.website_pageview_id
 group by website_pageviews.pageview_url
 ; */
+
+-- create temp table of first pageviews per session
+/*
+create temporary table first_pageviews_demo
+select
+website_pageviews.website_session_id,
+min(website_pageviews.website_pageview_id) as min_pv
+from website_pageviews
+inner join website_sessions
+on website_sessions.website_session_id = website_pageviews.website_session_id
+and website_sessions.created_at between '2014-01-01' and '2014-02-01'
+group by
+website_pageviews.website_session_id;
+*/
+-- join landing page to that	 
+/*
+create temporary table sessions_w_landing_page_demo
+select 
+first_pageviews_demo.website_session_id,
+website_pageviews.pageview_url as landing_page
+from first_pageviews_demo
+left join website_pageviews
+on website_pageviews.website_pageview_id = first_pageviews_demo.min_pv;
+*/
