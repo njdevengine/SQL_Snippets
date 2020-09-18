@@ -247,6 +247,8 @@ on website_pageviews.website_pageview_id = first_pageviews_demo.min_pv;
 	 
 -- gets bounced sessions only, i.e. only one pageview in the session
 
+/*
+create temporary table bounced_sessions_only
 select
 sessions_w_landing_page_demo.website_session_id,
 sessions_w_landing_page_demo.landing_page,
@@ -259,3 +261,4 @@ sessions_w_landing_page_demo.website_session_id,
 sessions_w_landing_page_demo.landing_page
 having
 count_of_pages_viewed = 1;
+*/
